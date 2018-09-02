@@ -1,4 +1,4 @@
-# Teamspeak3 (Alpine Linux) Docker Image [![Docker Automated Build](https://img.shields.io/docker/automated/rodaine/teamspeak3-alpine.svg)](https://hub.docker.com/r/rodaine/teamspeak3-alpine/)
+# Teamspeak3 (Alpine Linux) Docker Image
 
 _A Teamspeak 3 Server built on Alpine Linux (using glibc)_
 
@@ -63,3 +63,25 @@ docker run -d \
 
 Refer to the documentation included in your TS3 Server release for all the 
 available flags.
+
+### Docker-compose
+
+This is an example of a docker-compose.yml
+
+```
+version: '3'
+
+services:
+
+  teamspeak:
+    container_name: teamspeak
+    build: https://github.com/flashspys/teamspeak3-alpine.git
+    ports:
+     - "9987:9987/udp"
+    volumes:
+     - /docker/teamspeak/data:/data
+    command: inifile=/data/ts3server.ini license_accepted=1
+    restart: always
+    environment: 
+     - TS3SERVER_LICENSE=accept
+```
